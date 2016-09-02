@@ -1,27 +1,39 @@
 'use strict';
 
+var readline = require("readline");
+
+var readlineThing = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
+
 var game = {
 	start: function() {
-		var readline = require("readline");
-
-		var readlineThing = readline.createInterface({
-			input: process.stdin,
-			output: process.stdout
-		});
-
-		readlineThing.question("What is your name? ", function(answer) {
-			Name(answer)
-			console.log("Hi there " + answer + ", welcome to the game!");
-			readlineThing.question("Choose your class! Mage, Marksman, Assassin, or Tank? ", function(answer) {
-				chooseClass(answer);
-				console.log(Player);
-				readlineThing.close();
-			})
-		})
+		initialize();
 	},
 	restart: function() {
 		game.start();
 	}
+}
+
+function initialize(){
+	readlineThing.question("What is your name? ", function(answer) {
+			Name(answer)
+			console.log("Hi there " + answer + ", welcome to the game!");
+			readlineThing.question("Choose your class! Mage, Marksman, Assassin, or Tank? ", function(answer) {
+				chooseClass(answer);
+				console.log("You are a " + answer + ".");
+				readlineThing.question("What is your race? Are you a dog, cat, or rabbit? ", function(race) {
+					chooseRace(race);
+					console.log("You are a " + race + ".");
+					readlineThing.question("What is your gender? Are you a boy, a girl, or a hipster non-binary? (lmao) ", function(gender) {
+						chooseGender(gender);
+						console.log("You are a " + gender + ".");
+					readlineThing.close();	
+					})				
+				})
+			})
+		})
 }
 
 var Player = {
@@ -76,6 +88,16 @@ var finalBoss = {
 
 function Name(answer) {
 	Player.name = answer;
+}
+
+function chooseRace(race) {
+	Player.race = race;
+	if (Player.race != "Dog" && Player.race != "dog" && Player.race != "Cat" && Player.race != "cat" && Player.race != "Rabbit" && Player.race != "rabbit");
+	readlineThing.question("Please enter a valid race.");
+} 
+
+function chooseGender(gender) {
+	Player.gender = gender;
 }
 
 function chooseClass(answer) {	
@@ -170,6 +192,10 @@ function chooseClass(answer) {
 			finalBoss.health = finalBoss.health - 20;
 			Player.health = Player.health - 7;
 		}
+	} else {
+		readlineThing.question("Please enter a valid class: ", function(answer) {
+			chooseClass(answer);
+		})
 	}
 }
 
