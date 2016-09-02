@@ -10,6 +10,7 @@ var game = {
 		});
 
 		readlineThing.question("What is your name? ", function(answer) {
+			Name(answer)
 			console.log("Hi there " + answer + ", welcome to the game!");
 			readlineThing.question("Choose your class! Mage, Marksman, Assassin, or Tank? ", function(answer) {
 				chooseClass(answer);
@@ -71,6 +72,10 @@ var finalBoss = {
 			console.log("go home noob");
 		}
 	}
+}
+
+function Name(answer) {
+	Player.name = answer;
 }
 
 function chooseClass(answer) {	
