@@ -20,20 +20,32 @@ function initialize(){
 	readlineThing.question("What is your name? ", function(answer) {
 			Name(answer)
 			console.log("Hi there " + answer + ", welcome to the game!");
-			readlineThing.question("Choose your class! Mage, Marksman, Assassin, or Tank? ", function(answer) {
-				chooseClass(answer);
-				console.log("You are a " + answer + ".");
-				readlineThing.question("What is your race? Are you a dog, cat, or rabbit? ", function(race) {
-					chooseRace(race);
-					console.log("You are a " + race + ".");
-					readlineThing.question("What is your gender? Are you a boy, a girl, or a hipster non-binary? (lmao) ", function(gender) {
-						chooseGender(gender);
-						console.log("You are a " + gender + ".");
-					readlineThing.close();	
-					})				
-				})
-			})
-		})
+			askClass();
+	})
+}
+			
+function askClass() {
+	readlineThing.question("Choose your class! Mage, Marksman, Assassin, or Tank? ", function(answer) {
+			chooseClass(answer);
+			console.log("You are a " + answer + ".");
+			askRace();
+	})
+}
+
+function askRace() {
+	readlineThing.question("What is your race? Are you a dog, cat, or rabbit? ", function(race) {
+			chooseRace(race);
+			console.log("You are a " + race + ".");
+			askGender();
+	})
+}
+
+function askGender() {
+	readlineThing.question("What is your gender? ", function(gender) {
+			chooseGender(gender);
+			console.log("You are a " + gender + ".");
+			readlineThing.close();
+	})
 }
 
 var Player = {
@@ -124,8 +136,7 @@ function chooseClass(answer) {
 			console.log("Player used Elemental Fury!");
 			finalBoss.health = finalBoss.health - 15;
 		}
-	} 
-	else if (Player.class == "Marksman") {
+	} else if (Player.class == "Marksman") {
 		Player.skill["1"] = function() {
 			console.log("Player used Buck Shot!");
 			finalBoss.health = finalBoss.health - 3;
